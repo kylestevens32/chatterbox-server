@@ -1,5 +1,6 @@
 /* Import node's http module: */
 var http = require('http');
+var handleRequest = require('./request-handler');
 
 
 // Every server needs to listen on a port with a unique number. The
@@ -22,7 +23,9 @@ var ip = '127.0.0.1';
 // incoming requests.
 //
 // After creating the server, we will tell it to listen on the given port and IP. */
-var server = http.createServer(handleRequest);
+var server = http.createServer((req, res) => {
+  handleRequest.requestHandler(req, res);
+});
 console.log('Listening on http://' + ip + ':' + port);
 server.listen(port, ip);
 
@@ -30,7 +33,7 @@ server.listen(port, ip);
 //
 //   node basic-server.js
 //
-// on the command line.
+// on the command line
 //
 // To connect to the server, load http://127.0.0.1:3000 in your web
 // browser.
